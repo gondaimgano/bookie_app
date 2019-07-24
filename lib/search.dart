@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'customShowSearch.dart';
+//import 'customShowSearch.dart';
 
 import 'api.dart';
 
 Future<String> find(BuildContext context) async {
   //showSearch(context: null, delegate: null)
-  String cool = await showSearchWithHeader(context: context, delegate: PlaceDelegate());
+  String cool = await showSearch(context: context, delegate: PlaceDelegate());
   return cool;
 }
 
@@ -14,7 +14,7 @@ enum Destination{
   From
 }
 
-class PlaceDelegate extends CustomSearchDelegate<String> {
+class PlaceDelegate extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [

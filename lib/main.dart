@@ -1,5 +1,8 @@
 import 'package:bookie_app/search.dart';
+import 'package:bookie_app/showChoice.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'models.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,19 +10,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Bookie App',
-      theme: ThemeData(
-          fontFamily: "Rubik",
-          primarySwatch: Colors.blue,
-          inputDecorationTheme: InputDecorationTheme(
-              filled: true,
-              fillColor: Colors.grey,
-              contentPadding: EdgeInsets.all(16.0),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(40))))),
-      home: BookieApp(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<TransportSearch>(
+          builder: (_) => TransportSearch(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Bookie App',
+        theme: ThemeData(
+            fontFamily: "Rubik",
+            primarySwatch: Colors.blue,
+            ),
+        home: BookieApp(),
+      ),
     );
   }
 }
@@ -72,58 +77,7 @@ class BookieApp extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          spacing: 12,
-                          children: <Widget>[
-                            Text("Round Trip"),
-                            RotatedBox(
-                                quarterTurns: 1,
-                                child: Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.grey,
-                                ))
-                          ],
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Wrap(
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              spacing: 12,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.person,
-                                  color: Colors.grey,
-                                ),
-                                Text("0"),
-                              ],
-                            ),
-                            SizedBox(
-                              width: 12,
-                            ),
-                            Wrap(
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              spacing: 12,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.child_care,
-                                  color: Colors.grey,
-                                ),
-                                Text("0"),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                    RoundTripPassengerContainer(),
                     SizedBox(
                       height: 12,
                     ),
@@ -191,13 +145,87 @@ class BookieApp extends StatelessWidget {
           //SliverToBoxAdapter(child: ,)
         ],
       ),
-      bottomNavigationBar:
+      /*bottomNavigationBar:
           BottomNavigationBar(type: BottomNavigationBarType.fixed, items: [
         BottomNavigationBarItem(icon: Icon(Icons.search), title: Text("")),
         BottomNavigationBarItem(icon: Icon(Icons.feedback), title: Text("")),
         BottomNavigationBarItem(
             icon: Icon(Icons.person_outline), title: Text("")),
-      ]),
+      ]),*/
+    );
+  }
+}
+
+class RoundTripPassengerContainer extends StatelessWidget {
+  const RoundTripPassengerContainer({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var transNotifier=Provider.of<TransportSearch>(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        InkWell(
+          onTap: () async {
+            var result = await showChoice(context, Choice.TRIP);
+            //transNotifier.tripChoice=result;
+          },
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 12,
+            children: <Widget>[
+              Text(transNotifier.tripChoice??"Round Trip"),
+              RotatedBox(
+                  quarterTurns: 1,
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.grey,
+                  ))
+            ],
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        InkWell(
+          onTap: () async {
+            var result = await showChoice(context, Choice.PASSENGERS);
+          },
+          child: Row(
+            children: <Widget>[
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 12,
+                children: <Widget>[
+                  Icon(
+                    Icons.person,
+                    color: Colors.grey,
+                  ),
+                  Text("0"),
+                ],
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 12,
+                children: <Widget>[
+                  Icon(
+                    Icons.child_care,
+                    color: Colors.grey,
+                  ),
+                  Text("0"),
+                ],
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }
@@ -231,6 +259,7 @@ class TransportButtonWidget extends StatelessWidget {
 class FromToWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var transNotifier=Provider.of<TransportSearch>(context);
     return Container(
       height: 115,
       child: Stack(
@@ -239,9 +268,22 @@ class FromToWidget extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 TransportTextFieldWidget(
+
                   prefixIcon: Icon(Icons.donut_small),
+                  label: transNotifier.fromPlace,
+                  onPressed: () async{
+                    var locationFrom=await find(context);
+                    if(locationFrom!=null)
+                      transNotifier.fromPlace=locationFrom;
+                  },
                 ),
-                TransportTextFieldWidget(prefixIcon: Icon(Icons.pin_drop)),
+                TransportTextFieldWidget(prefixIcon: Icon(Icons.pin_drop),
+                    label: transNotifier.toPlace,
+                    onPressed: () async{
+                      var locationTo=await find(context);
+                      if(locationTo!=null)
+                        transNotifier.toPlace=locationTo;
+                    },),
               ],
             ),
           ),
@@ -269,27 +311,31 @@ class FromToWidget extends StatelessWidget {
 }
 
 class TransportTextFieldWidget extends StatelessWidget {
-  const TransportTextFieldWidget({
+TransportTextFieldWidget({
     Key key,
     @required this.prefixIcon,
+    this.onPressed,
     this.label,
+   // this.transNotifier,
   }) : super(key: key);
 
   final Icon prefixIcon;
-  final String label;
-
+ final  String label;
+  final VoidCallback onPressed;
+ // final TransportSearch transNotifier;
   @override
   Widget build(BuildContext context) {
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 3),
       width: double.infinity,
       child: InkWell(
-        onTap: () async => await find(context) ,
+        onTap:onPressed?? () async => await find(context),
         child: TextField(
           enabled: false,
           decoration: InputDecoration(
               prefixIcon: prefixIcon,
-              labelText: label ?? "City, Location",
+              labelText: label ?? "From City, Location",
               fillColor: Colors.grey.withOpacity(0.3),
               filled: true,
               contentPadding: EdgeInsets.all(4),

@@ -442,7 +442,7 @@ class _SearchPageState<T> extends State<_SearchPage<T>> {
 
     return Semantics(
       explicitChildNodes: true,
-      scopesRoute: true,
+      scopesRoute: false,
       namesRoute: true,
       label: routeName,
       child: Scaffold(
@@ -451,22 +451,44 @@ class _SearchPageState<T> extends State<_SearchPage<T>> {
           iconTheme: theme.primaryIconTheme,
           textTheme: theme.primaryTextTheme,
           brightness: theme.primaryColorBrightness,
-          leading: widget.delegate.buildLeading(context),
-          title: TextField(
-            controller: widget.delegate._queryTextController,
-            focusNode: focusNode,
-            style: theme.textTheme.title,
-            textInputAction: TextInputAction.search,
-            onSubmitted: (String _) {
-              widget.delegate.showResults(context);
-            },
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: searchFieldLabel,
-              hintStyle: theme.inputDecorationTheme.hintStyle,
-            ),
-          ),
-          actions: widget.delegate.buildActions(context),
+
+           bottom: PreferredSize(child: Row(
+
+             children: <Widget>[
+              
+               
+               Expanded(
+                 child: TextField(
+                   controller: widget.delegate._queryTextController,
+                   focusNode: focusNode,
+                   style: theme.textTheme.title,
+                   textInputAction: TextInputAction.search,
+                   onSubmitted: (String _) {
+                     widget.delegate.showResults(context);
+                   },
+
+                    decoration:  InputDecoration(
+                      border: OutlineInputBorder()
+                    )
+
+
+
+
+
+
+                 ),
+               ),
+
+
+           ],),
+
+               preferredSize: Size.fromHeight(48.0)),
+          title: Row(
+            children: <Widget>[
+              Text("Choose Date"),
+            ],
+          )
+
         ),
         body: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
