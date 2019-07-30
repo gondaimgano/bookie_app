@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-//import 'customShowSearch.dart';
+
 
 import 'api.dart';
 
 Future<String> find(BuildContext context) async {
   //showSearch(context: null, delegate: null)
-  String cool = await showSearch(context: context, delegate: PlaceDelegate());
-  return cool;
+  String result = await showSearch(context: context, delegate: PlaceDelegate());
+  return result;
 }
 
 enum Destination { To, From }
