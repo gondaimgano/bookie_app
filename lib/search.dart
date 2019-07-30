@@ -9,17 +9,28 @@ Future<String> find(BuildContext context) async {
   return cool;
 }
 
-enum Destination{
-  To,
-  From
-}
+enum Destination { To, From }
 
 class PlaceDelegate extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      FlatButton(child: Text("Clear"),
-      onPressed: ()=>query="",)
+      FlatButton(
+        child: Text("Clear"),
+        onPressed: () => query = "",
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: (){
+            print("add");
+          },
+            child: Icon(
+          Icons.add_circle_outline,
+          size: 25,
+          color: Colors.green,
+        )),
+      )
     ];
   }
 
@@ -38,20 +49,23 @@ class PlaceDelegate extends SearchDelegate<String> {
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return ListView(
-              children: snapshot.data.map((t) =>
-                  InkWell(
-                    onTap: ()=>close(context,t),
-                    child: ListTile(title:
-                    Text(t),),
-                  ),
-              ).toList()
-
-
-          );
-        if(snapshot.hasError)
+              children: snapshot.data
+                  .map(
+                    (t) => InkWell(
+                      onTap: () => close(context, t),
+                      child: ListTile(
+                        title: Text(t),
+                      ),
+                    ),
+                  )
+                  .toList());
+        if (snapshot.hasError)
           return Center(
-            child:Icon(Icons.warning,size: 200,color: Colors.red,)
-          );
+              child: Icon(
+            Icons.warning,
+            size: 200,
+            color: Colors.red,
+          ));
 
         return Center(child: CircularProgressIndicator());
       },
@@ -61,6 +75,5 @@ class PlaceDelegate extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return Container();
-
   }
 }
