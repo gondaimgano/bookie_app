@@ -47,81 +47,83 @@ Widget _tripChoices() => Consumer<TransportSearch>(
 
 Widget _passengerChoices() => Consumer<TransportSearch>(
       builder: (context, model, child) => Container(
-        height: 450,
+        height: MediaQuery.of(context).size.height*0.50,
         padding: EdgeInsets.all(12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 25,
-            ),
-            Text(
-              "Passengers",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Divider(),
-            ListTile(
-              title: Text("Adult"),
-              subtitle: Text("More than 14 years old"),
-              trailing: Wrap(
-                spacing: 12,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () => model.calcAdults(1),
-                  ),
-                  Text(model.noOfAdults),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () =>model.calcAdults(-1),
-                  )
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 25,
               ),
-            ),
-            Divider(),
-            ListTile(
-              title: Text("Children"),
-              subtitle:
-                  Text("In france bla blabla \n blabla bla \nbla bla bla \n"),
-              trailing: Wrap(
-                spacing: 12,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () => model.calcChildren(1),
-                  ),
-                  Text(model.noOfChildren),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () => model.calcChildren(-1),
-                  )
-                ],
+              Text(
+                "Passengers",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-            ),
-            Divider(),
-            ListTile(
-              title: Text("Infants"),
-              subtitle: Text("Below the age of 5 years"),
-              trailing: Wrap(
-                spacing: 12,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () =>model.calcInfants(1),
-                  ),
-                  Text(model.noOfInfants),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () =>model.calcInfants(-1),
-                  )
-                ],
+              Divider(),
+              ListTile(
+                title: Text("Adult"),
+                subtitle: Text("More than 14 years old"),
+                trailing: Wrap(
+                  spacing: 12,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () => model.calcAdults(1),
+                    ),
+                    Text(model.noOfAdults),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () =>model.calcAdults(-1),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+              Divider(),
+              ListTile(
+                title: Text("Children"),
+                subtitle:
+                    Text("In france bla blabla \n blabla bla \nbla bla bla \n"),
+                trailing: Wrap(
+                  spacing: 12,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () => model.calcChildren(1),
+                    ),
+                    Text(model.noOfChildren),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () => model.calcChildren(-1),
+                    )
+                  ],
+                ),
+              ),
+              Divider(),
+              ListTile(
+                title: Text("Infants"),
+                subtitle: Text("Below the age of 5 years"),
+                trailing: Wrap(
+                  spacing: 12,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () =>model.calcInfants(1),
+                    ),
+                    Text(model.noOfInfants),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () =>model.calcInfants(-1),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
