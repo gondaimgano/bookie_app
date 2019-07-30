@@ -205,7 +205,7 @@ class RoundTripPassengerContainer extends StatelessWidget {
                     Icons.person,
                     color: Colors.grey,
                   ),
-                  Text("0"),
+                  Text(Provider.of<TransportSearch>(context).totalAdults()),
                 ],
               ),
               SizedBox(
@@ -219,7 +219,7 @@ class RoundTripPassengerContainer extends StatelessWidget {
                     Icons.child_care,
                     color: Colors.grey,
                   ),
-                  Text("0"),
+                  Text(Provider.of<TransportSearch>(context).noOfInfants),
                 ],
               ),
             ],

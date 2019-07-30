@@ -53,5 +53,29 @@ class TransportSearch with ChangeNotifier{
     notifyListeners();
   }
 
+  String totalAdults()
+   => "${int.tryParse(_noOfAdults)+int.tryParse(_noOfChildren)}" ;
+
+  String calcAdults(int p){
+    var v=int.tryParse(_noOfAdults);
+    v+=p;
+    noOfAdults="$v";
+    return _noOfAdults;
+  }
+  String calcChildren(int p){
+    var v=int.tryParse(_noOfChildren);
+    v+=p;
+    noOfChildren="$v";
+    return _noOfChildren;
+  }
+
+ String calcInfants(int p) {
+    var v=int.tryParse(_noOfInfants);
+    v+=p;
+    noOfInfants="$v";
+    return _noOfInfants;
+  }
+
+
 
 }
