@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'models.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(BookieApp());
 
-class MyApp extends StatelessWidget {
+class BookieApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -23,13 +23,13 @@ class MyApp extends StatelessWidget {
             fontFamily: "Rubik",
             primarySwatch: Colors.blue,
             ),
-        home: BookieApp(),
+        home: Pot(),
       ),
     );
   }
 }
 
-class BookieApp extends StatelessWidget {
+class Pot extends StatelessWidget {
   final TextEditingController txtctl = TextEditingController();
   final TextEditingController txtctl0 = TextEditingController();
   final prefixIcon = Icon(Icons.donut_small);
