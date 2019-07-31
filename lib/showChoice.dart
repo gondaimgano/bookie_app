@@ -28,16 +28,16 @@ Widget _tripChoices() => Consumer<TransportSearch>(
           child: ListView(
             children: <Widget>[
               InkWell(
-                  onTap: () => model.tripChoice = "Round Trip",
+                  onTap: () => model.tripChoice = "Return Trip",
                   child: ListTile(
                     leading: Icon(Icons.done),
-                    title: Text("Round Trip"),
+                    title: Text("Return Trip"),
                   )),
               InkWell(
-                  onTap: () => model.tripChoice = "One Trip",
+                  onTap: () => model.tripChoice = "One-Way Trip",
                   child: ListTile(
                     leading: Icon(Icons.done),
-                    title: Text("One Trip"),
+                    title: Text("One-Way Trip"),
                   )),
             ],
           ),

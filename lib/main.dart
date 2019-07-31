@@ -3,6 +3,7 @@ import 'package:bookie_app/showChoice.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'models.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(BookieApp());
 
@@ -21,7 +22,7 @@ class BookieApp extends StatelessWidget {
         title: 'Bookie App',
         theme: ThemeData(
             fontFamily: "Rubik",
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.deepOrange,
             ),
         home: Pot(),
       ),
@@ -36,6 +37,7 @@ class Pot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -85,7 +87,32 @@ class Pot extends StatelessWidget {
                     FromToWidget(),
                     TransportTextFieldWidget(
                       prefixIcon: Icon(Icons.date_range),
-                      label: DateTime.now().toString(),
+                      label: Provider.of<TransportSearch>(context).dateFromTo(),
+                      onPressed: () async{
+                        var date=DateTime.now();
+                       try{
+                         DateTime from= await showDatePicker(context: context,
+                           initialDatePickerMode: DatePickerMode.year,
+                           initialDate: date,
+                           firstDate:date,
+                           lastDate: DateTime.now().add(Duration(days: 300,),),
+
+                         );
+                         Provider.of<TransportSearch>(context).fromDate=from.toString();
+                         DateTime to= await showDatePicker(context: context,
+                           initialDate: from,
+                           firstDate:from,
+                           lastDate: DateTime.now().add(Duration(days: 300,),),
+
+                         );
+                         Provider.of<TransportSearch>(context).toDate=to.toString();
+                       }
+                       on  Exception catch(ex){
+                         var date=DateTime.now();
+                         Provider.of<TransportSearch>(context).fromDate=date.toString();
+                         Provider.of<TransportSearch>(context).fromDate=date.toString();
+                        }
+                      },
                     ),
                     SizedBox(
                       height: 12,
@@ -319,9 +346,9 @@ TransportTextFieldWidget({
    // this.transNotifier,
   }) : super(key: key);
 
-  final Icon prefixIcon;
+  final Widget prefixIcon;
  final  String label;
-  final VoidCallback onPressed;
+  final Function onPressed;
  // final TransportSearch transNotifier;
   @override
   Widget build(BuildContext context) {

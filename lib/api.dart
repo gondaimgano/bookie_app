@@ -14,7 +14,7 @@ const List<String> myhome=[
 
 Future<List<String>> searchStrings(String query) async{
 
-   List<String> results = await Future.delayed(Duration(seconds: 5), () => myhome.where((target) => target.toLowerCase().contains(query.toLowerCase())).toList());
+   List<String> results = await Future.delayed(Duration(seconds: 3), () => myhome.where((target) => target.toLowerCase().contains(query.toLowerCase())).toList());
 
 
    return results;

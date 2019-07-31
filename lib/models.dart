@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransportSearch with ChangeNotifier{
-  String _tripChoice="Round Trip";
+  String _tripChoice="Return Trip";
   String _noOfAdults="0";
   String _noOfChildren="0";
   String _noOfInfants="0";
   String _fromPlace="From City, Location";
   String _toPlace="To City, Location";
-  String _toDate;
-  String _fromDate;
+  String _toDate=DateTime.now().toIso8601String();
+  String _fromDate=DateTime.now().toIso8601String();
 
   String get tripChoice=>_tripChoice;
   String get noOfAdults=>_noOfAdults;
@@ -74,6 +74,10 @@ class TransportSearch with ChangeNotifier{
     v+=p;
     noOfInfants="$v";
     return _noOfInfants;
+  }
+
+  String dateFromTo(){
+  return "${DateFormat().add_yMMMd().format(DateTime.parse(fromDate))} - ${DateFormat().add_yMMMd().format(DateTime.parse(toDate))}";
   }
 
 
