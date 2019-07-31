@@ -169,16 +169,10 @@ class Pot extends StatelessWidget {
               ),
             ),
           )
-          //SliverToBoxAdapter(child: ,)
+
         ],
       ),
-      /*bottomNavigationBar:
-          BottomNavigationBar(type: BottomNavigationBarType.fixed, items: [
-        BottomNavigationBarItem(icon: Icon(Icons.search), title: Text("")),
-        BottomNavigationBarItem(icon: Icon(Icons.feedback), title: Text("")),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline), title: Text("")),
-      ]),*/
+
     );
   }
 }
