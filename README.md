@@ -1,16 +1,12 @@
 # bookie_app
 
-A Booking app
+This is my most loved and personal app though it does not have the UI yet
+
+It really made me fall in love with Providers. I love Providers yesssssss
+
+Note: This is a prototype booking app and I was inspired by EuroTrain app
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="screenshot1.png"  width="425"/> <img src="screenshot2.png" width="425"/>
+<img src="screenshot3.png" width="425"/>
